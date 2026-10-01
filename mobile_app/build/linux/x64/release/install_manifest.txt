@@ -1,0 +1,13 @@
+/workspaces/SKIT-CS-2023-2027-47/mobile_app/build/linux/x64/release/bundle/mobile_app
+/workspaces/SKIT-CS-2023-2027-47/mobile_app/build/linux/x64/release/bundle/data/icudtl.dat
+/workspaces/SKIT-CS-2023-2027-47/mobile_app/build/linux/x64/release/bundle/lib/libflutter_linux_gtk.so
+/workspaces/SKIT-CS-2023-2027-47/mobile_app/build/linux/x64/release/bundle/data/flutter_assets/version.json
+/workspaces/SKIT-CS-2023-2027-47/mobile_app/build/linux/x64/release/bundle/data/flutter_assets/NativeAssetsManifest.json
+/workspaces/SKIT-CS-2023-2027-47/mobile_app/build/linux/x64/release/bundle/data/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf
+/workspaces/SKIT-CS-2023-2027-47/mobile_app/build/linux/x64/release/bundle/data/flutter_assets/FontManifest.json
+/workspaces/SKIT-CS-2023-2027-47/mobile_app/build/linux/x64/release/bundle/data/flutter_assets/shaders/stretch_effect.frag
+/workspaces/SKIT-CS-2023-2027-47/mobile_app/build/linux/x64/release/bundle/data/flutter_assets/shaders/ink_sparkle.frag
+/workspaces/SKIT-CS-2023-2027-47/mobile_app/build/linux/x64/release/bundle/data/flutter_assets/fonts/MaterialIcons-Regular.otf
+/workspaces/SKIT-CS-2023-2027-47/mobile_app/build/linux/x64/release/bundle/data/flutter_assets/AssetManifest.bin
+/workspaces/SKIT-CS-2023-2027-47/mobile_app/build/linux/x64/release/bundle/data/flutter_assets/NOTICES.Z
+/workspaces/SKIT-CS-2023-2027-47/mobile_app/build/linux/x64/release/bundle/lib/libapp.so
