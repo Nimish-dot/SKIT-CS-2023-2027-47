@@ -45,10 +45,7 @@ class AssessmentStep extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   description,
-                  style: const TextStyle(
-                    color: Colors.grey,
-                    height: 1.4,
-                  ),
+                  style: const TextStyle(color: Colors.grey, height: 1.4),
                 ),
               ],
             ),

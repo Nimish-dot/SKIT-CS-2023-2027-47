@@ -5,17 +5,12 @@ import '../widgets/assessment_step.dart';
 class AssessmentScreen extends StatelessWidget {
   final String sport;
 
-  const AssessmentScreen({
-    super.key,
-    required this.sport,
-  });
+  const AssessmentScreen({super.key, required this.sport});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Performance Assessment'),
-      ),
+      appBar: AppBar(title: const Text('Performance Assessment')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -23,10 +18,7 @@ class AssessmentScreen extends StatelessWidget {
           children: [
             const Text(
               'Start Your Assessment',
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
@@ -43,36 +35,23 @@ class AssessmentScreen extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
-                  colors: [
-                    Color(0xFFE3F2FD),
-                    Color(0xFFF5FAFF),
-                  ],
+                  colors: [Color(0xFFE3F2FD), Color(0xFFF5FAFF)],
                 ),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(
-                    Icons.auto_awesome,
-                    color: Color(0xFF1565C0),
-                    size: 32,
-                  ),
+                  Icon(Icons.auto_awesome, color: Color(0xFF1565C0), size: 32),
                   SizedBox(height: 12),
                   Text(
                     'AI-Powered Assessment',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 6),
                   Text(
                     'Your performance video will be analysed to generate objective performance metrics.',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      height: 1.4,
-                    ),
+                    style: TextStyle(color: Colors.grey, height: 1.4),
                   ),
                 ],
               ),
@@ -80,10 +59,7 @@ class AssessmentScreen extends StatelessWidget {
             const SizedBox(height: 28),
             const Text(
               'Assessment Process',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 18),
             const AssessmentStep(
@@ -99,8 +75,7 @@ class AssessmentScreen extends StatelessWidget {
             const AssessmentStep(
               number: '3',
               title: 'AI Analysis',
-              description:
-                  'The AI module analyses movement and performance characteristics.',
+              description: 'The AI module analyses movement and performance characteristics.',
             ),
             const AssessmentStep(
               number: '4',
@@ -124,10 +99,7 @@ class AssessmentScreen extends StatelessWidget {
                 icon: const Icon(Icons.video_library_outlined),
                 label: const Padding(
                   padding: EdgeInsets.symmetric(vertical: 14),
-                  child: Text(
-                    'Continue',
-                    style: TextStyle(fontSize: 16),
-                  ),
+                  child: Text('Continue', style: TextStyle(fontSize: 16)),
                 ),
               ),
             ),

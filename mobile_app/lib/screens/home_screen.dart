@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../models/athlete.dart';
 import '../widgets/feature_card.dart';
 import '../widgets/sport_card.dart';
-import 'assessment_screen.dart';
 import 'profile_screen.dart';
+import 'video_upload_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -27,11 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _openAssessment(String sport) {
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (_) => AssessmentScreen(
-          sport: sport,
-        ),
-      ),
+      MaterialPageRoute(builder: (_) => VideoUploadScreen(sport: sport)),
     );
   }
 
@@ -43,11 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (index == 2) {
       Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (_) => ProfileScreen(
-            athlete: _demoAthlete,
-          ),
-        ),
+        MaterialPageRoute(builder: (_) => ProfileScreen(athlete: _demoAthlete)),
       );
 
       setState(() {
@@ -62,18 +54,11 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Row(
           children: [
-            Icon(
-              Icons.sports_soccer,
-              color: Color(0xFF1565C0),
-              size: 30,
-            ),
+            Icon(Icons.sports_soccer, color: Color(0xFF1565C0), size: 30),
             SizedBox(width: 8),
             Text(
               'SportsAI',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 22,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
             ),
           ],
         ),
@@ -89,10 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: [
-                      Color(0xFF1565C0),
-                      Color(0xFF42A5F5),
-                    ],
+                    colors: [Color(0xFF1565C0), Color(0xFF42A5F5)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -125,17 +107,12 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 30),
               const Text(
                 'Choose Your Sport',
-                style: TextStyle(
-                  fontSize: 21,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 6),
               const Text(
                 'Select a sport to begin your assessment.',
-                style: TextStyle(
-                  color: Colors.grey,
-                ),
+                style: TextStyle(color: Colors.grey),
               ),
               const SizedBox(height: 16),
               GridView.count(
@@ -175,9 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: Colors.grey.shade200,
-                  ),
+                  border: Border.all(color: Colors.grey.shade200),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -204,10 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(height: 10),
                     const Text(
                       'Assess sports performance using AI-based video analysis and performance metrics.',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        height: 1.4,
-                      ),
+                      style: TextStyle(color: Colors.grey, height: 1.4),
                     ),
                     const SizedBox(height: 18),
                     SizedBox(
@@ -224,10 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 30),
               const Text(
                 'SportsAI Features',
-                style: TextStyle(
-                  fontSize: 21,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 14),
               const FeatureCard(

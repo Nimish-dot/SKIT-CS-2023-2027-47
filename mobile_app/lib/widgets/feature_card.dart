@@ -20,9 +20,7 @@ class FeatureCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: Colors.grey.shade200,
-        ),
+        border: Border.all(color: Colors.grey.shade200),
       ),
       child: Row(
         children: [
@@ -32,10 +30,7 @@ class FeatureCard extends StatelessWidget {
               color: const Color(0xFFE3F2FD),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(
-              icon,
-              color: const Color(0xFF1565C0),
-            ),
+            child: Icon(icon, color: const Color(0xFF1565C0)),
           ),
           const SizedBox(width: 14),
           Expanded(
