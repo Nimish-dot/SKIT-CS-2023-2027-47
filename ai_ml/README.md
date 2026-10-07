@@ -30,3 +30,42 @@ Actual video analysis, pose detection, feature extraction, and machine learning-
 5. Performance analysis
 6. ML-based scoring
 7. Feedback generation
+
+## Week 2 AI/ML Development
+
+During Week 2, the AI/ML module was extended from the initial
+performance scoring foundation.
+
+### Added in Week 2
+
+- Performance level classification
+- Rule-based performance feedback
+- Integration of performance score, level and feedback
+- Modular scoring structure
+
+### Performance Levels
+
+| Score | Level |
+|---|---|
+| 85–100 | Excellent |
+| 70–84.99 | Good |
+| 50–69.99 | Average |
+| Below 50 | Needs Improvement |
+
+### Current AI/ML Scope
+
+The current module uses predefined performance metrics:
+
+- Speed
+- Agility
+- Accuracy
+- Consistency
+
+These metrics are combined to calculate an overall performance score.
+
+Performance level and basic feedback are generated from the calculated
+score and individual metrics.
+
+Actual video-based pose detection, feature extraction and trained
+machine learning models will be implemented during later development
+stages.
