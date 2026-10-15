@@ -1,4 +1,4 @@
-const Athlete = require("../../../database/models/athleteModel");
+const Athlete = require("../models/athleteModel");
 
 const registerAthlete = async (req, res) => {
   try {
