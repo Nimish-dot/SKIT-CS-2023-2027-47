@@ -4,18 +4,20 @@ def calculate_performance_score(
     accuracy: float,
     consistency: float,
 ) -> float:
-    """
-    Calculate an overall performance score.
+    """Calculate an equally weighted performance score."""
 
-    Each performance metric is currently given equal weight.
-    Values should be between 0 and 100.
-    """
+    metrics = {
+        "speed": speed,
+        "agility": agility,
+        "accuracy": accuracy,
+        "consistency": consistency,
+    }
 
-    score = (
-        (speed * 0.25)
-        + (agility * 0.25)
-        + (accuracy * 0.25)
-        + (consistency * 0.25)
-    )
+    for name, value in metrics.items():
+        if isinstance(value, bool) or not isinstance(value, (int, float)):
+            raise ValueError(f"{name} must be a number")
+        if not 0 <= value <= 100:
+            raise ValueError(f"{name} must be between 0 and 100")
 
+    score = sum(metrics.values()) / len(metrics)
     return round(score, 2)
