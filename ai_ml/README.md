@@ -69,3 +69,22 @@ score and individual metrics.
 Actual video-based pose detection, feature extraction and trained
 machine learning models will be implemented during later development
 stages.
+## Week 3 AI/ML Development
+
+### Improvements
+- Added validation for performance metrics between 0 and 100.
+- Created a reusable assessment function.
+- Standardized assessment output for backend integration.
+- Added automated unit tests for scoring and validation.
+
+### Assessment Output
+The assessment function returns:
+- Individual performance metrics
+- Overall performance score
+- Performance level
+- Rule-based feedback
+
+### Current Limitations
+The current system uses rule-based scoring and feedback.
+It does not yet perform video analysis, pose estimation, or
+prediction using a trained machine learning model.
