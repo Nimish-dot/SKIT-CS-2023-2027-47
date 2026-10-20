@@ -65,3 +65,11 @@ Performance
 Overall Performance Score
    ↓
 AI Feedback
+## Week 4: Performance Validation Testing
+
+- Added Jest as a development dependency.
+- Added automated tests for the performance validator.
+- Tests cover valid scores, missing required fields, scores above 100, negative scores, and non-numeric scores.
+- Run the tests from the `database` directory using `npm test`.
+
+These tests validate the performance validation logic without requiring a live MongoDB connection.
