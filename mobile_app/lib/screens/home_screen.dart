@@ -7,7 +7,12 @@ import 'profile_screen.dart';
 import 'video_upload_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final String athleteId;
+
+  const HomeScreen({
+    super.key,
+    required this.athleteId,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -25,11 +30,16 @@ class _HomeScreenState extends State<HomeScreen> {
   );
 
   void _openAssessment(String sport) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => VideoUploadScreen(sport: sport)),
-    );
-  }
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (_) => VideoUploadScreen(
+        sport: sport,
+        athleteId: widget.athleteId,
+      ),
+    ),
+  );
+}
 
   void _changeTab(int index) {
     setState(() {

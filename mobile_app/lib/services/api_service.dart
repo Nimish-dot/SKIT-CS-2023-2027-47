@@ -1,9 +1,9 @@
-import 'dart:convert';
 
+import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  // Replace this URL with your forwarded backend URL if required.
+  // Replace with your forwarded backend URL if required.
   static const String baseUrl = 'http://localhost:5000/api';
 
   static Future<Map<String, dynamic>> registerAthlete({
@@ -22,7 +22,7 @@ class ApiService {
             'email': email,
             'sport': sport,
             'location': location,
-            'age': ?age,
+             'age': ?age,
           }),
         )
         .timeout(const Duration(seconds: 15));
@@ -36,8 +36,26 @@ class ApiService {
     throw Exception(data['message'] ?? 'Athlete registration failed');
   }
 
+  static Future<List<Map<String, dynamic>>> getAthletes() async {
+    final response = await http
+        .get(Uri.parse('$baseUrl/athletes'))
+        .timeout(const Duration(seconds: 15));
+
+    final data = jsonDecode(response.body) as Map<String, dynamic>;
+
+    if (response.statusCode == 200 && data['success'] == true) {
+      final athletes = data['athletes'] as List<dynamic>;
+
+      return athletes
+          .map((athlete) => Map<String, dynamic>.from(athlete as Map))
+          .toList();
+    }
+
+    throw Exception(data['message'] ?? 'Could not retrieve athletes');
+  }
+
   static Future<Map<String, dynamic>> createAssessment({
-    required int athleteId,
+    required String athleteId,
     required String sport,
     String videoUrl = '',
   }) async {

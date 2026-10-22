@@ -66,13 +66,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
     setState(() => _isLoading = true);
 
     try {
-      await ApiService.registerAthlete(
-        name: name,
-        email: email,
-        sport: _selectedSport!,
-        location: _locationController.text.trim(),
-        age: ageText.isEmpty ? null : int.parse(ageText),
-      );
+      final response = await ApiService.registerAthlete(
+      name: name,
+      email: email,
+      sport: _selectedSport!,
+      location: _locationController.text.trim(),
+      age: ageText.isEmpty ? null : int.parse(ageText),
+    );
+
+final athlete = response['athlete'] as Map<String, dynamic>;
+final athleteId = athlete['_id'] as String;
+
+debugPrint('Registered athlete ID: $athleteId');
 
       if (!mounted) return;
 
