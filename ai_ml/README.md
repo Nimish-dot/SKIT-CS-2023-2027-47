@@ -88,3 +88,26 @@ The assessment function returns:
 The current system uses rule-based scoring and feedback.
 It does not yet perform video analysis, pose estimation, or
 prediction using a trained machine learning model.
+## Week 4 AI/ML Development
+
+### Improvements
+- Strengthened validation for performance scores.
+- Added tests for score boundaries and invalid numeric values.
+- Improved rule-based feedback for tied strongest and weakest metrics.
+- Standardized the expected assessment output.
+
+### Run the assessment
+Run from the `ai_ml` directory:
+
+```bash
+python main.py
+```
+
+### Run automated tests
+
+```bash
+python -m unittest -v test_assessment.py
+```
+
+### Current limitations
+The current implementation uses equally weighted performance metrics and rule-based feedback. It does not yet perform video-based pose estimation, feature extraction, or predictions from a trained model.
