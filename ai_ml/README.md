@@ -111,3 +111,39 @@ python -m unittest -v test_assessment.py
 
 ### Current limitations
 The current implementation uses equally weighted performance metrics and rule-based feedback. It does not yet perform video-based pose estimation, feature extraction, or predictions from a trained model.
+
+
+## Week 5 AI/ML Development
+
+### Configurable Performance Scoring
+
+- Added support for configurable weights for speed, agility, accuracy, and consistency.
+- Preserved equal weighting as the default behavior.
+- Normalized the weighted score using the total of the supplied weights.
+- Added validation for invalid metrics and weight configurations.
+- Added automated tests for custom weights and invalid weight inputs.
+
+### Example
+
+```python
+from scoring.performance_score import calculate_performance_score
+
+score = calculate_performance_score(
+    speed=100,
+    agility=80,
+    accuracy=60,
+    consistency=40,
+    weights={
+        "speed": 4,
+        "agility": 3,
+        "accuracy": 2,
+        "consistency": 1,
+    },
+)
+
+print(score)  # 80.0
+```
+
+### Current Limitations
+
+The module still uses predefined performance metrics and rule-based assessment. It does not yet perform video analysis, pose estimation, or predictions from a trained machine learning model.

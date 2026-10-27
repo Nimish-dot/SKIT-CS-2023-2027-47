@@ -76,5 +76,54 @@ class TestSportsAIAssessment(unittest.TestCase):
         self.assertIn("Accuracy, Consistency", feedback)
 
 
+    def test_custom_performance_weights(self):
+        score = calculate_performance_score(
+            100, 80, 60, 40,
+            weights={
+                "speed": 4,
+                "agility": 3,
+                "accuracy": 2,
+                "consistency": 1,
+            },
+        )
+        self.assertEqual(score, 80)
+
+    def test_default_weights_remain_equal(self):
+        self.assertEqual(
+            calculate_performance_score(80, 75, 90, 85),
+            82.5,
+        )
+
+    def test_invalid_weights(self):
+        valid_weights = {
+            "speed": 1,
+            "agility": 1,
+            "accuracy": 1,
+            "consistency": 1,
+        }
+
+        invalid_weights = [
+            [],
+            {"speed": 1},
+            {**valid_weights, "speed": -1},
+            {**valid_weights, "speed": float("nan")},
+            {**valid_weights, "speed": True},
+            {name: 0 for name in valid_weights},
+        ]
+
+        for weights in invalid_weights:
+            with self.subTest(weights=weights):
+                
+                with self.assertRaises(ValueError):
+                    calculate_performance_score(
+                        80, 75, 90, 85, weights=weights
+                    )
+
+    def test_custom_weights_reject_non_dictionary(self):
+        with self.assertRaises(ValueError):
+            calculate_performance_score(
+                80, 75, 90, 85, weights=[]
+            )
+
 if __name__ == "__main__":
     unittest.main()
