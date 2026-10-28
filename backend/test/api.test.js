@@ -71,3 +71,24 @@ test('POST /api/performance rejects missing required fields', async () => {
   assert.equal(response.status, 400);
   assert.equal(body.success, false);
 });
+test('Invalid JSON returns a consistent 400 response', async () => {
+  const response = await fetch(baseUrl + '/api/athletes/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: '{"name":',
+  });
+
+  const body = await response.json();
+
+  assert.equal(response.status, 400);
+  assert.equal(body.success, false);
+  assert.equal(body.message, 'Invalid JSON request body');
+});
+
+test('Unknown route returns a 404 response', async () => {
+  const response = await fetch(baseUrl + '/api/unknown-route');
+  const body = await response.json();
+
+  assert.equal(response.status, 404);
+  assert.equal(body.success, false);
+});
