@@ -30,13 +30,20 @@ class _VideoUploadScreenState extends State<VideoUploadScreen> {
         allowMultiple: false,
       );
 
-      if (!mounted || result == null || result.files.isEmpty) return;
+      if (!mounted || result == null || result.files.isEmpty) {
+        return;
+      }
 
-      setState(() => _selectedVideo = result.files.single);
+      setState(() {
+        _selectedVideo = result.files.single;
+      });
     } catch (error) {
       if (!mounted) return;
+
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Could not select video: $error')),
+        SnackBar(
+          content: Text('Could not select video: $error'),
+        ),
       );
     }
   }
@@ -44,14 +51,29 @@ class _VideoUploadScreenState extends State<VideoUploadScreen> {
   Future<void> _createAssessment() async {
     if (_selectedVideo == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please choose a video first.')),
+        const SnackBar(
+          content: Text('Please choose a video first.'),
+        ),
       );
       return;
     }
 
-    setState(() => _isLoading = true);
+    if (widget.athleteId.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Athlete ID is missing. Please register again.'),
+        ),
+      );
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+    });
 
     try {
+      // Creates a pending assessment using the existing backend API.
+      // The selected video is not uploaded by this request.
       final response = await ApiService.createAssessment(
         athleteId: widget.athleteId,
         sport: widget.sport,
@@ -59,29 +81,97 @@ class _VideoUploadScreenState extends State<VideoUploadScreen> {
 
       if (!mounted) return;
 
-      final assessment = response['assessment'];
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Assessment created successfully. '
-            'Video selected locally: ${_selectedVideo!.name}',
-          ),
-        ),
-      );
+      final rawAssessment = response['assessment'];
 
-      debugPrint('Created assessment: $assessment');
+      if (rawAssessment is! Map) {
+        throw Exception(
+          'The server response did not contain an assessment.',
+        );
+      }
+
+      final assessment = Map<String, dynamic>.from(rawAssessment);
+      final assessmentId =
+          assessment['_id']?.toString() ?? 'Unavailable';
+      final status =
+          assessment['status']?.toString() ?? 'pending';
+
+      await showDialog<void>(
+        context: context,
+        builder: (dialogContext) {
+          return AlertDialog(
+            title: const Row(
+              children: [
+                Icon(
+                  Icons.check_circle_outline,
+                  color: Colors.green,
+                ),
+                SizedBox(width: 10),
+                Expanded(child: Text('Assessment Created')),
+              ],
+            ),
+            content: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Sport: ${widget.sport}'),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      const Text(
+                        'Status: ',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Chip(label: Text(status)),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Assessment ID',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 4),
+                  SelectableText(assessmentId),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Your assessment record has been created. '
+                    'The selected video remains on your device and '
+                    'has not been uploaded or analysed yet.',
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext),
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
     } catch (error) {
       if (!mounted) return;
+
+      final message = error
+          .toString()
+          .replaceFirst('Exception: ', '');
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
-            'Could not create assessment: '
-            '${error.toString().replaceFirst('Exception: ', '')}',
+          content: Text('Could not create assessment: $message'),
+          action: SnackBarAction(
+            label: 'Retry',
+            onPressed: _createAssessment,
           ),
         ),
       );
     } finally {
-      if (mounted) setState(() => _isLoading = false);
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 
@@ -90,7 +180,9 @@ class _VideoUploadScreenState extends State<VideoUploadScreen> {
     final video = _selectedVideo;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Upload Performance Video')),
+      appBar: AppBar(
+        title: const Text('Upload Performance Video'),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
@@ -115,9 +207,12 @@ class _VideoUploadScreenState extends State<VideoUploadScreen> {
               const SizedBox(height: 10),
               Text(
                 'Select a video of your ${widget.sport} performance '
-                'for assessment.',
+                'to prepare an assessment.',
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.grey.shade600, height: 1.5),
+                style: TextStyle(
+                  color: Colors.grey.shade600,
+                  height: 1.5,
+                ),
               ),
               const SizedBox(height: 35),
               Container(
@@ -139,7 +234,9 @@ class _VideoUploadScreenState extends State<VideoUploadScreen> {
                     Text(
                       video?.name ?? 'No video selected',
                       textAlign: TextAlign.center,
-                      style: const TextStyle(fontWeight: FontWeight.w600),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     const SizedBox(height: 8),
                     if (video != null)
@@ -165,32 +262,45 @@ class _VideoUploadScreenState extends State<VideoUploadScreen> {
               SizedBox(
                 height: 52,
                 child: ElevatedButton.icon(
-                  onPressed:
-                      _isLoading || video == null ? null : _createAssessment,
+                  onPressed: _isLoading || video == null
+                      ? null
+                      : _createAssessment,
                   icon: _isLoading
                       ? const SizedBox(
                           height: 18,
                           width: 18,
-                          child: CircularProgressIndicator(strokeWidth: 2),
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                          ),
                         )
                       : const Icon(Icons.assignment_outlined),
                   label: Text(
-                    _isLoading ? 'Creating Assessment...' : 'Create Assessment',
+                    _isLoading
+                        ? 'Creating Assessment...'
+                        : 'Create Assessment',
                   ),
                 ),
               ),
               const SizedBox(height: 18),
               Text(
-                'Note: The selected video stays on your device. '
-                'It is not uploaded or analyzed by the backend yet.',
+                'Note: Selecting a video does not upload it. '
+                'Video upload and AI analysis require additional '
+                'backend integration.',
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
+                style: TextStyle(
+                  color: Colors.grey.shade600,
+                  fontSize: 13,
+                  height: 1.5,
+                ),
               ),
               const SizedBox(height: 12),
               Text(
                 'Tip: Record the athlete clearly with the full body visible.',
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
+                style: TextStyle(
+                  color: Colors.grey.shade600,
+                  fontSize: 13,
+                ),
               ),
             ],
           ),
