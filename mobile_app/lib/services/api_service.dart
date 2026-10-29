@@ -22,7 +22,7 @@ class ApiService {
             'email': email,
             'sport': sport,
             'location': location,
-             'age': ?age,
+             'age': age,
           }),
         )
         .timeout(const Duration(seconds: 15));
